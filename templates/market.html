@@ -1,0 +1,44 @@
+{%extends "base.html"%}
+
+{%block title%}
+Market
+{%endblock%}
+
+{%block body%}
+<main class="px-3">
+    <h1 style="margin-bottom: 5rem;">Каталог</h1>
+    {%if weeds|length > 0%}
+      <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+        {%for weed in weeds%}
+          <form method="post">
+            <div class="col">
+              <div class="card mb-4 rounded-3 shadow-sm">
+                <div class="card-header py-3">
+                  <h4 class="my-0 fw-normal">{{weed.name}}</h4>
+                </div>
+                <div class="card-body">
+                  <div class="wrapper myimg">
+                    <img src="../static/img/weed/{{weed.img}}">
+                  </div>
+                  <h1 class="card-title pricing-card-title">₽{{weed.price}}<small class="text-body-secondary fw-light">/gr</small></h1>
+                  <ul class="list-unstyled mt-3 mb-4">
+                    <li>Brand: {{weed.brand}}</li>
+                    <input type="hidden" name="product_id" value="{{weed.id}}"}}>
+                    <li>Rating: {{weed.rating|string() + "⭐"}}</li>
+                    <li>Count: {{weed.count}} gr</li>
+                    <li>TGK: {{weed.tgk}}%</li>
+                    <li>Compound: {{weed.compound}}</li>
+                  </ul>
+                  <input type="text" name="quantity" id="quantity" class="btn btn-secondary my-2" placeholder="Количество">
+                  <button type="submit" class="btn btn-outline-primary my-2">Add to cart</button>
+                </div>
+              </div>
+            </div>
+          </form>
+        {%endfor%}
+      </div>
+    {%else%}
+      <h2>Сайт в разработке</h2>
+    {%endif%}
+</main>
+{%endblock%}

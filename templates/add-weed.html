@@ -1,0 +1,26 @@
+{%extends "base.html"%}
+
+{%block class%}
+h-100
+{%endblock%}
+
+{%block title%}
+Add Weed
+{%endblock%}
+
+{%block body%}
+<main class="px-4">
+    <h1>Add Weed Product</h1>
+    <form method="post">
+        <input type="text" name="name" id="name" class="form-control" placeholder="Введите название" style="margin-top: 3rem"><br>
+        <input type="text" name="price" id="price" class="form-control" placeholder="Введите стоимость"><br>
+        <input type="text" name="count" id="count" class="form-control" placeholder="Введите количество"><br>
+        <input type="text" name="brand" id="brand" class="form-control" placeholder="Введите бренд"><br>
+        <input type="text" name="tgk" id="tgk" class="form-control" placeholder="Введите TGK"><br>
+        <input type="text" name="compound" id="compound" class="form-control" placeholder="Введите составляющее"><br>
+        <input type="text" name="img" id="img" class="form-control" placeholder="Введите название фото"><br>
+        <textarea name="text" id="text" class="form-control" placeholder="Введите текст"></textarea><br>
+        <input type="submit" class="w-100 btn btn-lg btn-outline-primary" value="Отправить" style="margin-top: 2rem">
+    </form>
+</main>
+{%endblock%}
