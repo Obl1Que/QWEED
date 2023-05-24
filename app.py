@@ -25,6 +25,13 @@ class Weed(db.Model):
 def mainpage():
     return render_template("index.html")
 
+@app.route("/cart", methods=["POST", "GET"])
+def cart():
+    if request.method == "POST":
+        pass
+    else:
+        return render_template("cart.html")
+
 @app.route("/add-weed", methods=["POST", "GET"])
 def add_weed():
     if request.method == "POST":
