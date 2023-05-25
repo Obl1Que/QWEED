@@ -1,10 +1,11 @@
-from flask import Flask, render_template, request, redirect, flash
+from flask import Flask, render_template, request, redirect, flash, jsonify
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///weed.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
+
 
 class Weed(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -21,9 +22,20 @@ class Weed(db.Model):
     def __repr__(self):
         return "<Weed %r>" % self.id
 
+
+class CartItem(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.String)
+    weed_id = db.Column(db.Integer)
+    count = db.Column(db.Integer)
+
+    def __repr__(self):
+        return "<CartItem %r>" % self.id
+
 @app.route("/")
 def mainpage():
     return render_template("index.html")
+
 
 @app.route("/cart", methods=["POST", "GET"])
 def cart():
@@ -31,6 +43,7 @@ def cart():
         pass
     else:
         return render_template("cart.html")
+
 
 @app.route("/add-weed", methods=["POST", "GET"])
 def add_weed():
@@ -54,11 +67,11 @@ def add_weed():
     else:
         return render_template("add-weed.html")
 
+
 @app.route("/market", methods=["POST", "GET"])
 def market():
     if request.method == "POST":
-        print(request.form)
-        return redirect("/")
+        return redirect("/market")
     else:
         try:
             weeds = Weed.query.order_by(Weed.id).all()
