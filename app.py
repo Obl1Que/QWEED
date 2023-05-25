@@ -75,9 +75,33 @@ def market():
     else:
         try:
             weeds = Weed.query.order_by(Weed.id).all()
+            cart_items = CartItem.query.filter_by(user_id="user_1").all()
         except Exception as ex:
             print(ex)
-        return render_template("market.html", weeds = weeds)
+        return render_template("market.html", weeds=weeds, cart_items=cart_items)
+
+
+@app.route("/add_to_cart", methods=["POST"])
+def add_to_cart():
+    weed_id = request.form.get("weed_id")
+    count = request.form.get("count")
+    user_id = "user_1"
+
+    if int(count) == 0:
+        CartItem.query.filter_by(user_id=user_id, weed_id=weed_id).delete()
+        db.session.commit()
+        return jsonify({"message": "Product deleted from cart successfully."})
+    existing_item = CartItem.query.filter_by(user_id=user_id, weed_id=weed_id).first()
+    if existing_item:
+        existing_item.count = int(count)
+        db.session.commit()
+        return jsonify({"message": "Product updated in cart successfully."})
+    else:
+        cart_item = CartItem(user_id=user_id, weed_id=weed_id, count=count)
+        db.session.add(cart_item)
+        db.session.commit()
+        return jsonify({"message": "Product added to cart successfully."})
+
 
 if __name__ == "__main__":
     app.run(debug=True, port=9999)
