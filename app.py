@@ -33,6 +33,17 @@ class CartItem(db.Model):
     def __repr__(self):
         return "<CartItem %r>" % self.id
 
+
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    nickname = db.Column(db.String(24), nullable=False)
+    email = db.Column(db.String(100), nullable=False)
+    password = db.Column(db.String(100), nullable=False)
+    balance = db.Column(db.Integer, default=0)
+
+    def __repr__(self):
+        return "<User %r>" % self.id
+
 @app.route("/")
 def mainpage():
     return render_template("index.html")
