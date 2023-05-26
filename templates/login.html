@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block class %}
+    h-100
+{% endblock %}
+
+{% block title %}
+    Account
+{% endblock %}
+
+{% block body %}
+<main class="px-4">
+    <h1>Log in</h1>
+    <form method="post">
+        <input type="text" name="nickname" id="nickname" class="form-control" placeholder="Nickname" style="margin-top: 3rem"><br>
+        <input type="text" name="password" id="password" class="form-control" placeholder="Password"><br>
+        <input type="submit" class="w-100 btn btn-lg btn-outline-primary" value="Log in" style="margin-top: 2rem">
+    </form>
+{% if not status %}
+    <h3 class="mybadinfo" role="alert">Wrong nickname or password!</h3>
+{% endif %}
+</main>
+{% endblock %}
