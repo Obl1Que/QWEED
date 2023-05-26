@@ -57,6 +57,27 @@ def cart():
         return render_template("cart.html")
 
 
+@app.route("/login", methods=["POST", "GET"])
+def login():
+    if request.method == "POST":
+        nickname = request.form.get("nickname")
+        password = request.form.get("password")
+
+        user = User.query.filter_by(nickname=nickname, password=password).first()
+
+        if not user:
+            return render_template("login.html", user=user, status=False)
+        else:
+            return redirect(f"/account/{user.nickname}")
+    else:
+        return render_template("login.html", status=True)
+
+
+@app.route("/account/<string:nickname>")
+def account(nickname):
+    return render_template("account.html", nickname=nickname)
+
+
 @app.route("/add-weed", methods=["POST", "GET"])
 def add_weed():
     if request.method == "POST":
