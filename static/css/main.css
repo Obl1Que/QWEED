@@ -87,3 +87,16 @@
     width: 40%;
     font-size: 1.25rem;
 }
+
+.mybadinfo {
+    cursor: default;
+    margin-top: 1rem;
+    padding: 1rem;
+    background-color: rgba(255, 0, 0, 0.5);
+    color: white;
+    border-radius: .5rem;
+}
+
+.mybadinfo:hover {
+    background-color: red;
+}
