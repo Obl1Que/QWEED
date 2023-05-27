@@ -101,7 +101,8 @@ def login():
 
 @app.route("/account/<string:nickname>")
 def account(nickname):
-    return render_template("account.html", nickname=nickname)
+    user = User.query.filter_by(nickname=nickname).first()
+    return render_template("account.html", user=user)
 
 
 @app.route("/add-weed", methods=["POST", "GET"])
