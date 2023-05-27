@@ -50,6 +50,31 @@ def mainpage():
     return render_template("index.html")
 
 
+@app.route("/singup", methods=["POST", "GET"])
+def singup():
+    if request.method == "POST":
+        email = request.form.get("email")
+        nickname = request.form.get("nickname")
+        password = request.form.get("password")
+
+        if not email or not nickname or not password:
+            return render_template("singup.html", answer="Not all fields are filled!")
+        if User.query.filter_by(email=email).all():
+            return render_template("singup.html", answer="Email already taken!")
+        if User.query.filter_by(nickname=nickname).all():
+            return render_template("singup.html", answer="Nickname already taken!")
+
+        user = User(email=email, nickname=nickname, password=password)
+        try:
+            db.session.add(user)
+            db.session.commit()
+        except Exception as ex:
+            print(ex)
+        return account(nickname)
+    else:
+        return render_template("singup.html")
+
+
 @app.route("/cart", methods=["POST", "GET"])
 def cart():
     if request.method == "POST":
