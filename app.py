@@ -44,6 +44,7 @@ class User(db.Model):
     def __repr__(self):
         return "<User %r>" % self.id
 
+
 @app.route("/")
 def mainpage():
     return render_template("index.html")
