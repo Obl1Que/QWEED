@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block class %}
+    h-100
+{% endblock %}
+
+{% block title %}
+    Sing up
+{% endblock %}
+
+{% block body %}
+    <main class="px-4">
+        <h1>Sing up</h1>
+        <form method="post">
+            <input type="text" name="email" id="nickname" class="form-control" placeholder="Email" style="margin-top: 3rem"><br>
+            <input type="text" name="nickname" id="password" class="form-control" placeholder="Nickname"><br>
+            <input type="text" name="password" id="password" class="form-control" placeholder="Password"><br>
+            <input type="submit" class="w-100 btn btn-lg btn-outline-primary" value="Sing up" style="margin-top: 2rem">
+        </form>
+        {% if answer %}
+            <h3 class="mybadinfo" role="alert">{{ answer }}</h3>
+        {% endif %}
+    </main>
+{% endblock %}
